@@ -1,0 +1,326 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\lstloadlanguages{SAS}
+\lstset{basicstyle=\footnotesize\ttfamily,columns=fixed,showstringspaces=false,
+  showspaces=false,showtabs=false}
+
+\usepackage{enumitem}
+\setlist{parsep=5.5pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 541 Homework \#6}
+\chead{April 4, 2016}
+\rhead{Kenny Flagg}
+\setlength{\headheight}{18pt}
+
+\title{Stat 541 Homework \#6}
+\author{Kenny Flagg}
+\date{April 4, 2016}
+
+\begin{document}
+\thispagestyle{plain}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+{\it BIBD for wool cleaning agents.}
+
+\begin{enumerate}
+
+\item %a
+{\it Verify that this study has the appropriate structure for a BIBD.}
+
+There are \(a=4\) treatments, \(b=16\) blocks, \(k=3\) treatments applied to
+each block. Each treatment appears in \(r=12\) blocks and each pair of
+treatments appears in \(\lambda=8\) blocks. Then
+\begin{equation*}
+\frac{r(k-1)}{a-1}=\frac{(12)(2)}{3}=8=\lambda
+\end{equation*}
+so this a balanced incomplete block design.
+
+\item %b
+{\it State the model and the hypotheses to be tested.}
+
+The model is
+\begin{equation*}
+y_{ij}=\mu+\tau_i+\beta_j+\epsilon_{ij};\qquad
+\epsilon_{ij}\overset{iid}{\sim}\mathrm{N}(0,\sigma^2)
+\end{equation*}
+where \(i=1,2,3,4\) indexes treatments A, B, C, D, and \(j=1,2,\dots,16\)
+indexes the batches.
+
+The hypotheses being tested are
+\begin{align*}
+H_0\text{: }&\tau_1=\tau_2=\tau_3=\tau_4\text{,}\\
+H_1\text{: }&\tau_i\neq\tau_{i'}\text{ for some }i\neq i'\text{.}
+\end{align*}
+
+The ANOVA table produced by SAS apears on the next page. The test statistic
+is \(F=8.80\) with \(\text{p-value}=0.0003\), so at \(\alpha=0.05\) there is
+enough evidence to conclude that there are differences in mean weight loss
+among the different cleaning agents.
+
+\pagebreak
+\lstinputlisting[firstline=22,lastline=46]{hw6p1.lst}
+
+\item %c
+{\it Perform Bonferroni's multiple comparison test using both the sample means
+and the least squares means. For each case, state which pairs of means are
+considered statistically significantly different.}
+
+Since there is evidence that the treatment means are not all equal, we can
+perform Bonferroni's multiple comparisons procedure to test the hypotheses
+\begin{align*}
+H_0\text{: }&\mu_i=\mu_{i'}\text{,}\\
+H_1\text{: }&\mu_i\neq\mu_{i'}
+\end{align*}
+for each pair, \(i\neq i'\).
+
+SAS output appears on the next page. When applied to the sample means, at
+\(\alpha=0.05\), we conclude that the mean of B is significantly different
+from the means of A, C, and D. We have little evidence that there are
+differences among the means of any of A, C, and D.
+
+At \(\alpha=0.05\), the Bonferroni-adjusted p-values for comparisons of the
+least squares means indicate significant differences between  A and C, A and D,
+B and C, and B and D.
+
+\pagebreak
+
+\lstinputlisting[firstline=50,lastline=78]{hw6p1.lst}
+\vfill
+\lstinputlisting[firstline=82,lastline=107]{hw6p1.lst}
+
+\item %d
+{\it What are the sample mean and lsmean values for Agent A, and why are they
+so different?}
+
+From the SAS output in part (c), the sample mean for Agent A is
+\(\bar{y}_{1\cdot}=18.7417\text{ mg}\) and the least squares mean for Agent
+A is \(\widehat{\mu}_1=20.0135\text{ mg}\). The sample mean is low because the
+Agent A appears in blocks with low response values. The least squares mean
+adjusts for the blocks.
+
+\item %e
+{\it Find estimates of the agent effects assuming the sum of the effects
+equals 0.}
+
+Under the sum-to-zero constraint, the estimated effects are
+\(\widehat{\tau}_1=0.8906\), \(\widehat{\tau}_2=0.9656\),
+\(\widehat{\tau}_3=-0.8281\), and \(\widehat{\tau}_4=-1.0281\).
+
+\lstinputlisting[firstline=111,lastline=123]{hw6p1.lst}
+
+\end{enumerate}
+
+\pagebreak
+\item %2
+{\it Factorial experiment for effects of sulphur and nitrogen on red
+clover growth. Analyze the data and assess the validity of the model
+assumptions. Include a Bonferroni multiple comparison test comparing the 8
+cell means.}
+
+\textbf{Model and \(F\)-Test}
+
+The interaction model is
+\begin{equation*}
+y_{ijk}=\mu+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\epsilon_{ijk}\qquad
+\epsilon_{ijk}\overset{iid}{\sim}\mathrm{N}(0\sigma^2)
+\end{equation*}
+where \(i=1,2\) indexes the nitrogen levels, \(j=1,2,3,4\) indexes the
+level of sulfur, and \(k=1,2,3\) indexes the replicates in each combination
+of nitrogen and sulfur.
+
+We start by testing for interaction effects,
+\begin{align*}
+H_0\text{: }&(\alpha\beta)_{11}=(\alpha\beta)_{12}=\dots
+=(\alpha\beta)_{24}\text{,} \\
+H_1\text{: }&\text{some }(\alpha\beta)_{ij}\neq(\alpha\beta)_{i'j'}\text{.}
+\end{align*}
+The ANOVA table shows a test statistic of \(F=349.78\) with
+\(\text{p-value}<0.0001\). At \(\alpha=0.05\) there is enough evidence to
+conclude that there are interaction effects and that the effect of nitrogen on
+clover growth depends upon the sulfur level.
+
+\lstinputlisting[firstline=22,lastline=47]{hw6p2glm.lst}
+
+\pagebreak
+\textbf{Bonferroni's MCP}
+
+Since the ANOVA \(F\)-test provides evidence of interactions, it is of
+interest to perform pariwise comparisons of the mean growth for all pairs of
+nitrogren-sulphur combinations,
+\begin{align*}
+H_0\text{: }&\mu_{ij}=\mu_{i'j'}\text{,} \\
+H_1\text{: }&\mu_{ij}\neq\mu_{i'j'}\text{.}
+\end{align*}
+SAS output with Bonferroni-adjusted p-values appears below. At
+\(\alpha=0.05\), we find significant differences between the means of all
+pairs except
+\begin{itemize}
+\item 0 lbs/acre nitrogen, 0 lbs/acre sulfur vs
+0 lbs/acre nitrogen, 3 lbs/acre sulfur,
+\item  0 lbs/acre nitrogen, 9 lbs/acre sulfur vs
+20 lbs/acre nitrogen, 0 lbs/acre sulfur,
+\item 0 lbs/acre nitrogen, 9 lbs/acre sulfur vs
+20 lbs/acre nitrogen, 6 lbs/acre sulfur, and
+\item 20 lbs/acre nitrogen, 0 lbs/acre sulfur vs
+20 lbs/acre nitrogen, 6 lbs/acre sulfur.
+\end{itemize}
+
+\lstinputlisting[firstline=95,lastline=128]{hw6p2glm.lst}
+
+\pagebreak
+\textbf{Model Assumptions and Cramer-Von Mises Test}
+
+The plot of studentized residuals against their fitted values shows no
+patterns indicating non-homogeneous variance. However, the Normal Q-Q plot
+and the histogram of residuals suggest violations of the Normality assumption.
+A test of Normailty will be performed on the residuals.
+
+\includegraphics[width=0.33\linewidth]{clover1}
+\includegraphics[width=0.33\linewidth]{clover3}
+\includegraphics[width=0.33\linewidth]{clover6}
+
+The Cramer-Von Mises Goodness of Fit Test tests the hypotheses
+\begin{align*}
+H_0\text{: }&\text{The residuals follow a Normal CDF,} \\
+H_1\text{: }&\text{The residuals do not follow a Normal CDF.}
+\end{align*}
+Output from PROC UNIVARIATE appears below. The Cramer-Von Mises statistic
+is \(W^2=0.1319\) with \(\text{p-value}=0.0402\). At \(\alpha=0.05\), we
+reject \(H_0\) and conclude that the distibutions of the residuals is
+significantly different from Normal. The Normality assumption is violated
+and the ANOVA model is inappropriate for these data.
+
+\lstinputlisting[firstline=4,lastline=16]{hw6p2univ.lst}
+
+\pagebreak
+\item %3
+{\it Each of the following tables represents the cell means from a balanced
+\(2\times 2\) factorial completely randomized design with \(n\) replicates
+per cell. For each table tell which of the following summs of squares would
+be zero for that table: \(SS_A\), \(SS_B\), \(S_{AB}\).}
+
+For any table,
+
+\begin{itemize}
+\item\(SS_A=0\) if \(\bar{y}_{\cdot 1\cdot}=\bar{y}_{\cdot 2\cdot}\),
+\item\(SS_B=0\) if \(\bar{y}_{1\cdot\cdot}=\bar{y}_{2\cdot\cdot}\),
+\item\(SS_{AB}=0\) if \(\bar{y}_{11}-\bar{y}_{12}=\bar{y}_{21}-\bar{y}_{22}\)
+and
+\(\bar{y}_{11\cdot}-\bar{y}_{21\cdot}=\bar{y}_{12\cdot}-\bar{y}_{22\cdot}\).
+\end{itemize}
+
+\begin{minipage}{0.5\linewidth}
+\begin{tabular}{c|c|c|}
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Table 1} \\
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Factor A} \\
+\cline{2-3}
+Factor & ~1~ & 3 \\
+\cline{2-3}
+B & 5 & 3 \\
+\cline{2-3}
+\end{tabular}
+
+\begin{itemize}
+\item \(\bar{y}_{\cdot 1\cdot}=3\), \(\bar{y}_{\cdot 2\cdot}=3\)
+\(\implies\) \(SS_A=0\)
+\item \(\bar{y}_{1\cdot\cdot}=2\), \(\bar{y}_{2\cdot\cdot}=4\)
+\(\implies\) \(SS_B\neq 0\)
+\item \(\bar{y}_{11\cdot}-\bar{y}_{12\cdot}=-2\),
+\(\bar{y}_{21\cdot}-\bar{y}_{22\cdot}=2\),\\
+\(\bar{y}_{11\cdot}-\bar{y}_{21\cdot}=-4\),
+\(\bar{y}_{12\cdot}-\bar{y}_{22\cdot}=0\) \\
+\(\implies\) \(SS_{AB}\neq 0\)
+\end{itemize}
+
+\end{minipage}\begin{minipage}{0.5\linewidth}
+\begin{tabular}{c|c|c|}
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Table 2} \\
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Factor A} \\
+\cline{2-3}
+Factor & ~1~ & 3 \\
+\cline{2-3}
+B & 5 & 7 \\
+\cline{2-3}
+\end{tabular}
+
+\begin{itemize}
+\item \(\bar{y}_{\cdot 1\cdot}=3\), \(\bar{y}_{\cdot 2\cdot}=5\)
+\(\implies\) \(SS_A\neq 0\)
+\item \(\bar{y}_{1\cdot\cdot}=2\), \(\bar{y}_{2\cdot\cdot}=6\)
+\(\implies\) \(SS_B\neq 0\)
+\item \(\bar{y}_{11}-\bar{y}_{12}=-2\), \(\bar{y}_{21}-\bar{y}_{22}=-2\),\\
+\(\bar{y}_{11}-\bar{y}_{21}=-4\), \(\bar{y}_{12}-\bar{y}_{22}=-4\) \\
+\(\implies\) \(SS_{AB}=0\)
+\end{itemize}
+
+\end{minipage}
+
+\begin{minipage}{0.5\linewidth}
+\begin{tabular}{c|c|c|}
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Table 3} \\
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Factor A} \\
+\cline{2-3}
+Factor & ~1~ & 3 \\
+\cline{2-3}
+B & 5 & 5 \\
+\cline{2-3}
+\end{tabular}
+
+\begin{itemize}
+\item \(\bar{y}_{\cdot 1\cdot}=3\), \(\bar{y}_{\cdot 2\cdot}=4\)
+\(\implies\) \(SS_A\neq 0\)
+\item \(\bar{y}_{1\cdot\cdot}=2\), \(\bar{y}_{2\cdot\cdot}=5\)
+\(\implies\) \(SS_B\neq 0\)
+\item \(\bar{y}_{11}-\bar{y}_{12}=-2\), \(\bar{y}_{21}-\bar{y}_{22}=0\),\\
+\(\bar{y}_{11}-\bar{y}_{21}=-4\), \(\bar{y}_{12}-\bar{y}_{22}=-2\) \\
+\(\implies\) \(SS_{AB}\neq 0\)
+\end{itemize}
+
+\end{minipage}\begin{minipage}{0.5\linewidth}
+\begin{tabular}{c|c|c|}
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Table 4} \\
+\multicolumn{1}{c}{} & \multicolumn{2}{c}{Factor A} \\
+\cline{2-3}
+Factor & ~5~ & 3 \\
+\cline{2-3}
+B & 5 & 3 \\
+\cline{2-3}
+\end{tabular}
+
+\begin{itemize}
+\item \(\bar{y}_{\cdot 1\cdot}=5\), \(\bar{y}_{\cdot 2\cdot}=3\)
+\(\implies\) \(SS_A\neq 0\)
+\item \(\bar{y}_{1\cdot\cdot}=4\), \(\bar{y}_{2\cdot\cdot}=4\)
+\(\implies\) \(SS_B=0\)
+\item \(\bar{y}_{11}-\bar{y}_{12}=2\), \(\bar{y}_{21}-\bar{y}_{22}=2\),\\
+\(\bar{y}_{11}-\bar{y}_{21}=0\), \(\bar{y}_{12}-\bar{y}_{22}=0\) \\
+\(\implies\) \(SS_{AB}=0\)
+\end{itemize}
+
+\end{minipage}
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problem 1}
+
+\lstinputlisting[language=SAS]{BIBD_HO.SAS}
+
+\pagebreak
+\subsubsection*{Problem 2}
+
+\footnotesize\lstinputlisting[language=SAS]{CLOVR_H2.SAS}
+
+\end{document}

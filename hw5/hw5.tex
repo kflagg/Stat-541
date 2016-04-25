@@ -1,0 +1,261 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\title{Stat 541 Homework \#5}
+\author{Kenny Flagg}
+\date{March 4, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+\emph{Problem 3.42 (a), sample size to detect a difference in means of 10 with power 0.90.}
+
+\begin{enumerate}
+
+\item %a
+If \(\sigma=2\), a total of 9 observations (3 batteries of each brand) are
+needed to detect a difference in mean battery life of 10 hours with a power
+of at least 0.90. The actual power achieved is 0.998.
+
+\item %b
+If \(\sigma=3\), a total of 9 observations (3 batteries of each brand) are
+needed to detect a difference in mean battery life of 10 hours with a power
+of at least 0.90. The actual power achieved is 0.902.
+
+\end{enumerate}
+
+{\footnotesize\verbatiminput{hw5p1.lst}}
+
+\pagebreak
+\item %2
+\emph{Problem 3.42 (a) again, sample size to detect a difference in means of 10 with power 0.95.}
+
+\begin{enumerate}
+
+\item %a
+If \(\sigma=2\), a total of 9 observations (3 batteries of each brand) are
+needed to detect a difference in mean battery life of 10 hours with a power
+of at least 0.95. The actual power achieved is 0.998.
+
+\item %b
+If \(\sigma=2\), a total of 12 observations (4 batteries of each brand) are
+needed to detect a difference in mean battery life of 10 hours with a power
+of at least 0.95. The actual power achieved is 0.987.
+
+\end{enumerate}
+
+{\footnotesize\verbatiminput{hw5p2.lst}}
+
+\item %3
+\emph{In Problem 3.26, was random assignment used?}
+
+Random assignment was not used. The treatment is brand, and it would not be
+possible to randomly assign batteries to brands.
+
+\pagebreak
+\item %4
+\emph{Orthogonal polynomial contrasts for 2mg, 4mg, 8mg, and 10mg.}
+
+The mean is \(\bar{x}=6\), so the initial vectors are:
+\begin{equation*}
+\mathbf{v}_0=\begin{bmatrix}1 \\ 1 \\ 1 \\ 1\end{bmatrix}\qquad
+\mathbf{v_1}=\begin{bmatrix}-4 \\ -2 \\ 2 \\ 4\end{bmatrix}\qquad
+\mathbf{v}_2=\begin{bmatrix}16 \\ 4 \\ 4 \\ 16\end{bmatrix}\qquad
+\mathbf{v}_3=\begin{bmatrix}-64 \\ -8 \\ 8 \\ 64\end{bmatrix}\qquad
+\end{equation*}
+\begin{equation*}
+|\mathbf{v}_0|=\sqrt{1+1+1+1}=2\qquad\implies\qquad
+\mathbf{u}_0=\frac{\mathbf{v}_0}{|\mathbf{v}_0|}=\frac{1}{2}\begin{bmatrix}1 \\ 1 \\ 1 \\ 1\end{bmatrix}
+\end{equation*}
+
+Linear Contrast Vector:
+\begin{equation*}
+\mathbf{v}_1\cdot\mathbf{u}_0=\frac{1}{2}(-4-2+2+4)=0
+\end{equation*}
+\begin{equation*}
+\mathbf{w}_1=\mathbf{v}_1-(\mathbf{v}_1\cdot\mathbf{u}_0)\mathbf{u}_0=\mathbf{v}_1-0\mathbf{u}_0=\begin{bmatrix}-4 \\ -2 \\ 2 \\ 4\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+|\mathbf{w}_1|=\sqrt{16+4+4+16}=2\sqrt{10}\qquad\implies\qquad
+\mathbf{u}_1=\frac{\mathbf{w}_1}{|\mathbf{w}_1|}=\frac{1}{\sqrt{10}}\begin{bmatrix}-2 \\ -1 \\ 1 \\ 2\end{bmatrix}
+\end{equation*}
+
+Quadratic Contrast Vector:
+\begin{equation*}
+\mathbf{v}_2\cdot\mathbf{u}_0=\frac{1}{2}(16+4+4+16)=20
+\end{equation*}
+\begin{equation*}
+\mathbf{v}_2\cdot\mathbf{u}_1=\frac{1}{\sqrt{10}}(-32-4+4+32)=0
+\end{equation*}
+\begin{equation*}
+\mathbf{w}_2=\mathbf{v}_2-(\mathbf{v}_2\cdot\mathbf{u}_0)\mathbf{u}_0-(\mathbf{v}_2\cdot\mathbf{u}_1)\mathbf{u}_1
+=\mathbf{v}_2-20\mathbf{u}_0-0\mathbf{u}_1
+=\begin{bmatrix}16 \\ 4 \\ 4 \\ 16\end{bmatrix}-\begin{bmatrix}10 \\ 10 \\ 10 \\ 10\end{bmatrix}
+=\begin{bmatrix}6 \\ -6 \\ -6 \\ 6\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+|\mathbf{w}_2|=\sqrt{36+36+36+36}=12\qquad\implies\qquad
+\mathbf{u}_2=\frac{\mathbf{w}_2}{|\mathbf{w}_2|}=\frac{1}{2}\begin{bmatrix}1 \\ -1 \\ -1 \\ 1\end{bmatrix}
+\end{equation*}
+
+Cubic Contrast Vector:
+\begin{equation*}
+\mathbf{v}_3\cdot\mathbf{u}_0=\frac{1}{2}(-64-8+8+64)=0
+\end{equation*}
+\begin{equation*}
+\mathbf{v}_3\cdot\mathbf{u}_1=\frac{1}{\sqrt{10}}(128+8+8+128)=\frac{272}{\sqrt{10}}
+\end{equation*}
+\begin{equation*}
+\mathbf{v}_3\cdot\mathbf{u}_2=\frac{1}{2}(-64+8-8+64)=0
+\end{equation*}
+\begin{align*}
+\mathbf{w}_3=\mathbf{v}_3-(\mathbf{v}_3\cdot\mathbf{u}_0)\mathbf{u}_0-(\mathbf{v}_3\cdot\mathbf{u}_1)\mathbf{u}_1-(\mathbf{v}_3\cdot\mathbf{u}_2)\mathbf{u}_2
+&=\mathbf{v}_3-0\mathbf{u}_0-\frac{288}{\sqrt{10}}\mathbf{u}_1-0\mathbf{u}_2\\
+&=\frac{1}{5}\begin{bmatrix}-320 \\ -40 \\ 40 \\ 320\end{bmatrix}-\frac{1}{5}\begin{bmatrix}-272 \\ -136 \\ 136 \\ 272\end{bmatrix}
+=\frac{1}{5}\begin{bmatrix}-48 \\ 96 \\ -96 \\ 48\end{bmatrix}
+\end{align*}
+\begin{equation*}
+|\mathbf{w}_3|=\frac{48}{5}\sqrt{1+4+4+1}=\frac{48\sqrt{10}}{5}\qquad\implies\qquad
+\mathbf{u}_3=\frac{\mathbf{w}_3}{|\mathbf{w}_3|}=\frac{1}{48\sqrt{10}}\begin{bmatrix}-1 \\ 2 \\ -2 \\ 1\end{bmatrix}
+\end{equation*}
+
+So the contrasts are:
+\begin{align*}
+\Gamma_L&=-2\mu_1-\mu_2+\mu_3+2\mu_4\\
+\Gamma_Q&=\mu_1-\mu_2-\mu_3+\mu_4\\
+\Gamma_C&=-1\mu_1+2\mu_2-2\mu_3+\mu_4\\
+\end{align*}
+
+%\pagebreak
+\item %5
+\emph{Cell count experiment with runs as blocks.}
+
+\begin{enumerate}
+
+\item %a
+\emph{Model and parameters.}
+
+The model is
+\begin{equation*}
+y_{ij}=\mu+\tau_i+\beta_j+\epsilon_{ij};\quad\epsilon_{ij}\overset{iid}{\sim}\mathrm{N}(0,\sigma^2)
+\end{equation*}
+where \(\mu\) is the mean cell count for the control group in experiment 6;
+\(\tau_i\), \(i=2,3\), are the effects of the drugs on mean cell count; and
+\(\beta_j\), \(j=1,\dots,5\), are the effects of the experimental runs on the
+mean cell count.
+
+\item %b
+\emph{ANOVA hypotheses.}
+
+\(H_0\): \(\tau_2=\tau_3=0\); Both drugs have no effect on mean cell count.
+
+\(H_a\): \(\tau_i\neq 0\) for some \(i\); At least one drug has an effect on
+mean cell count.
+
+\pagebreak
+\item %c
+\emph{ANOVA results.}
+
+There is strong evidence (\(F_0=6.78\), \(\text{p-value}=0.0138\)) that at
+least one of the drugs has an effect on mean cell count.
+
+{\footnotesize\verbatiminput{hw5p5c.lst}}
+
+\item %d
+\emph{Did either drug increase cell counts?}
+
+Drug 1 has an estimated effect of \(\widehat{\tau}_2=147.83\) (\(t_0=3.14\),
+\(\text{right-tailed p-value}=0.0052\)) so there is strong evidence that
+drug 1 increases the mean cell count.
+
+Drug 2 has an estimated effect of \(\widehat{\tau}_3=-4.17\) (\(t_0=-0.09\),
+\(\text{two-tailed p-value}=0.9311\)) so there is no evidence that drug 2
+has an effect on the mean cell count.
+
+\item %e
+\emph{Is a square root transformation appropriate?}
+
+The square root transformation is not necessary. The studentized residuals
+by predicted values plot does not show any serious violation of the constant
+variance assumption.
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{hw5p5c1.png}
+\end{center}
+
+\item %f
+\emph{ANOVA ignoring blocks.}
+
+There is moderate evidence (\(F_0=3.37\), \(\text{p-value}=0.0620\)) that at
+least one of the drugs has an effect on mean cell count.
+
+{\footnotesize\verbatiminput{hw5p5f.lst}}
+
+\item %g
+\emph{Did blocking improve the analysis?}
+
+Yes, blocking improved the analysis. In both analyses, the estimated drug
+effects are the same, but their standard errors differ. Including the
+blocks accounts for run-to-run variability so the estimates are more precise
+and we can be more certain in our conclusion that drug 1 is effective.
+
+\end{enumerate}
+
+\item %6
+\emph{Power analysis for Problem 3.10.}
+
+\begin{center}\begin{tabular}{c|rrrrr|r}
+Cotton Weight Percent & \multicolumn{5}{c|}{Tensile Strengths} & Mean \\
+\hline
+15 &  7 &  7 & 15 & 11 &  9 &  9.8 \\
+20 & 12 & 17 & 12 & 18 & 18 & 15.4 \\
+25 & 14 & 19 & 19 & 18 & 18 & 17.6 \\
+30 & 19 & 25 & 22 & 19 & 23 & 21.6 \\
+35 &  7 & 10 & 11 & 15 & 11 & 10.8
+\end{tabular}
+
+\(\widehat\sigma=\sqrt{MSE}=2.84\)
+\end{center}
+
+\begin{enumerate}
+
+\item %a
+
+A total of 70 observations (14 observations of each cotton weight percentage)
+are needed to detect a linear trend in mean tensile strength with a power of
+at least 0.90. The actual power achieved is 0.920.
+
+\item %b
+
+A total of 10 observations (2 observations of each cotton weight percentage)
+are needed to detect a quadratic trend in mean tensile strength with a power
+of at least 0.90. The actual power achieved is 0.904.
+
+\end{enumerate}
+
+{\footnotesize\verbatiminput{hw5p6.lst}}
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problems 1 and 2}
+
+{\footnotesize\verbatiminput{hw5p1.sas}}
+
+\subsubsection*{Problem 5}
+
+{\footnotesize\verbatiminput{hw5p5.sas}}
+
+\subsubsection*{Problem 6}
+
+{\footnotesize\verbatiminput{hw5p6.sas}}
+
+\end{document}

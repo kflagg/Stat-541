@@ -1,0 +1,445 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\lstloadlanguages{SAS}
+\lstset{basicstyle=\footnotesize\ttfamily,columns=fixed,showstringspaces=false,
+  showspaces=false,showtabs=false}
+
+\usepackage{enumitem}
+\setlist{parsep=5.5pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 541 Homework \#7}
+\chead{April 18, 2016}
+\rhead{Kenny Flagg}
+\setlength{\headheight}{18pt}
+\setlength{\headsep}{2pt}
+
+\title{Stat 541 Homework \#7}
+\author{Kenny Flagg}
+\date{April 18, 2016}
+
+\begin{document}
+\thispagestyle{plain}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+{\it Problem 13.1, pages 601. Also provide a practical interpretation of the
+variance component estimates in the context of the study.}
+
+%\begin{enumerate}
+
+%\item %a
+%{\it Analyze the data from this experiment.}
+
+Since the operators and parts were randomly selected, random effects should
+be used. The appropriate model is
+\begin{align*}
+y_{ijk}&=\mu+\tau_i+\beta_j+(\tau\beta)_{ij}+\epsilon_{ijk}\text{;}\\
+\tau_i&\overset{iid}{\sim}\mathrm{N}\left(0,\sigma^2_\tau\right)\text{,}\\
+\beta_j&\overset{iid}{\sim}\mathrm{N}\left(0,\sigma^2_\beta\right)\text{,}\\
+(\tau\beta)_{ij}&\overset{iid}{\sim}
+\mathrm{N}\left(0,\sigma^2_{\tau\beta}\right)\text{,}\\
+\epsilon_{ijk}&\overset{iid}{\sim}\mathrm{N}\left(0,\sigma^2\right)
+\end{align*}
+where \(\tau_i\) is the operator effect, \(\beta_j\) is the part effect, and
+\((\tau\beta)_{ij}\) is the operator by part interaction.
+
+The random effects ANOVA output appears on the next page. We first test for
+the interaction effect with the hypotheses
+\begin{align*}
+H_0\text{: }&\sigma^2_{\tau\beta}=0\text{,}\\
+H_1\text{: }&\sigma^2_{\tau\beta}>0\text{.}
+\end{align*}
+The exact \(F\)-statistic is \(F=0.40\) with \(\text{p-value}=0.9270\). There
+is little to no evidence of an interaction effect.
+
+Now we test the main effects. The hypotheses for the operator effect are
+\begin{align*}
+H_0\text{: }&\sigma^2_{\tau}=0\text{,}\\
+H_1\text{: }&\sigma^2_{\tau}>0\text{.}
+\end{align*}
+The exact \(F\)-test has test statistic \(F=0.69\) with
+\(\text{p-value}=0.4269\) so there is little evidence that the mean response
+varies among operators.
+
+For the part effect, the hypotheses are
+\begin{align*}
+H_0\text{: }&\sigma^2_{\tau}=0\text{,}\\
+H_1\text{: }&\sigma^2_{\tau}>0\text{.}
+\end{align*}
+The exact \(F\)-statistic is \(F=18.28\) with \(\text{p-value}<0.0001\). There
+is strong evidence that the mean measurements vary among parts.
+
+\begin{figure}[H]\centering
+\includegraphics[page=1, trim={2in 7.2in 2in 0.25in}, clip]{hw7prob1a}
+\end{figure}
+
+%\item %b
+%{\it Estimate the variance components using the ANOVA method.}
+
+The variance estmates for the operator and interaction effects are
+\(\widehat{\sigma}^2_\tau=0\) and \(\widehat{\sigma}^2_{\tau\beta}=0\). On
+average, the measurements do not differ from one operator to another. The
+estimated variance for the part effect is \(\widehat{\sigma}^2_\beta=1.614\),
+which is small relative to the observed response values and may be acceptably
+low. However, the estimated residual variance is \(\widehat{\sigma}^2=1.317\),
+so the variability among measurements on the same part is almost as large as
+the variability among parts. This implies that the measurement equipment is
+not precise enough to measure these parts adequately.
+
+The residual plot shows no concerning patterns and the Normal Q-Q plot shows
+little deviation from the diagonal line, so we can assume constant variance
+and Normality of the residuals.
+
+\begin{figure}[H]\centering
+\includegraphics[page=1, trim={2in 8.5in 2in 0.25in}, clip]{hw7prob1b}
+\end{figure}
+
+The residual plot shows no concerning patterns and the Normal Q-Q plot shows
+little deviation from the diagonal line, so we can assume constant variance
+and Normality of the residuals.
+
+%\begin{figure}[H]
+\includegraphics[width=0.5\linewidth]{hw7p1a}
+\includegraphics[width=0.5\linewidth]{hw7p1a3}
+%\end{figure}
+
+%\end{enumerate}
+
+\item %2
+{\it Reconsider Problem 13.1. Consider two scenarios:}
+\begin{enumerate}[label=(\roman*)]
+\item{\it Suppose that when each measurement was taken, each operator knew the
+part number being measured and also recorded the data him/herself.}
+\item{\it Suppose that when each measurement was taken, each operator were
+``blinded'' to the part number being measured, and a third party recorded
+the measurements.}
+\end{enumerate}
+{\it How might this impact the data analysis?}
+
+In situation (i), measurements on the same part would not be independent.
+The observed values could be biased if, for example, an operator remembered
+previous measurements of the part and adjusted the values to agree with
+previous readings. In situation (ii), all observations would be made
+independently and the model used in problem 1 would be appropriate.
+
+\item %3
+{\it Suppose the two operators in Problem 13.1 were the only two available
+(that is, Operators represents a fixed effect). Which model effects (if any)
+now have different \(F\)-test statistics? And, if an effect's \(F\)-test is
+different, what would be used for the denominator of the \(F\)-statistic?}
+
+In this case, none of the \(F\)-tests would change. The denominator of the
+test for the interaction would still be \(MS_E\) and the denominator for the
+tests of the main effects would still be \(MS_{AB}\).
+
+\begin{figure}[H]\centering
+\includegraphics[page=1, trim={1in 9.05in 1in 0.25in}, clip]{hw7prob3}
+\end{figure}
+
+\item %4
+{\it Consider the information on pages 192--194 for Example 5.1 for the battery
+design experiment. Suppose the researcher is planning another \(3\times 3\)
+factorial experiment. The goal is to determine the sample size required so
+that the power of each \(F\)-test (for Material Type, Temperature, and their
+interaction) is \(\geq 0.90\).}
+
+\begin{enumerate}
+
+\item %a
+{\it Based on this experiment, what is the estimate of \(\sigma\)?}
+
+The estimate is \(\sqrt{MS_E}=25.9848\).
+
+\item %b
+{\it Use SAS to determine the desired sample size assuming you use the sample
+mean \(\bar{y}_{ij}\) as an estimate of \(\mu_{ij}\) for \(i=1,2,3\) and
+\(j=1,2,3\). You can assume \(\alpha=0.05\).}
+
+Four replicates are needed to achieve a power of at least 0.90 for testing the
+material effect. Only two replicates are needed for testing the temperature
+effect with a power of at least 0.90. For testing the interaction, five
+replicates are needed. Thus we need at least five replicates for a total sample
+size of 45 in order to obtain a power of 0.90 for all the \(F\)-tests.
+
+\begin{figure}[H]\centering
+\includegraphics[page=1, trim={1in 7.05in 1in 0.25in}, clip]{hw7prob4}
+\end{figure}
+
+\end{enumerate}
+
+\pagebreak
+\item %5
+{\it Factors A and B are fixed factors both having 3 fixed levels, and factors
+C and D are random factors each having 5 randomly-selected levels. Suppose
+\(n=4\) replicates are taken for each A*B*C*D combination. In the Proc GLM
+model statement, \(A|B|C|D\) will generate the full four-factor factorial
+model.}
+
+\begin{enumerate}
+
+\item %a
+{\it Assuming a completely randomized design, generate a table of expected mean
+squares for this four-factor factorial experiment.}
+
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,page=3,trim={0 5.9in 0 0.2in},clip]{hw7prob5}
+\end{figure}
+
+\item %b
+{\it For what effects are there exact \(F\)-tests? Provide the \(F\)-statistic
+in terms of mean squares for these exact tests.}
+
+The following are exact \(F\)-tests:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A*B*C & \(F=\frac{MS_{ABC}}{MS_{ABCD}}\) \\
+\hline
+A*B*D & \(F=\frac{MS_{ABD}}{MS_{ABCD}}\) \\
+\hline
+A*C*D & \(F=\frac{MS_{ACD}}{MS_{ABCD}}\) \\
+\hline
+B*C*D & \(F=\frac{MS_{BCD}}{MS_{ABCD}}\) \\
+\hline
+A*B*C*D & \(F=\frac{MS_{ABCD}}{MS_E}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\item %c
+{\it For what effects are there approximate \(F\)-tests? Provide the
+\(F\)-statistic in terms of mean squares for these approximate tests.}
+
+SAS used the following linear combinations for the approximate \(F\)-tests:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A & \(F=\frac{MS_{A}}{MS_{AC}+MS_{AD}-MS_{ACD}}\) \\
+\hline
+B & \(F=\frac{MS_{B}}{MS_{BC}+MS_{BD}-MS_{BCD}}\) \\
+\hline
+A*B & \(F=\frac{MS_{AB}}{MS_{ABC}+MS_{ABD}-MS_{ABCD}}\) \\
+\hline
+C & \(F=\frac{MS_{C}}
+{MS_{AC}+MS_{BC}-MS_{ABC}+MS_{CD}-MS_{ACD}-MS_{BCD}+MS_{ABCD}}\) \\
+\hline
+A*C & \(F=\frac{MS_{AC}}{MS_{ABC}+MS_{ACD}-MS_{ABCD}}\) \\
+\hline
+B*C & \(F=\frac{MS_{BC}}{MS_{ABC}+MS_{BCD}-MS_{ABCD}}\) \\
+\hline
+D & \(F=\frac{MS_{D}}
+{MS_{AD}+MS_{BD}-MS_{ABD}+MS_{CD}-MS_{ACD}-MS_{BCD}+MS_{ABCD}}\) \\
+\hline
+A*D & \(F=\frac{MS_{AD}}{MS_{ABD}+MS_{ACD}-MS_{ABCD}}\) \\
+\hline
+B*D & \(F=\frac{MS_{BD}}{MS_{ABD}+MS_{BCD}-MS_{ABCD}}\) \\
+\hline
+C*D & \(F=\frac{MS_{CD}}{MS_{ACD}+MS_{BCD}-MS_{ABCD}}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+\item %d
+{\it Suppose the four-factor interaction is removed from the model. Answer
+parts (b) and (c) again.}
+
+
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth,page=8,trim={0 6.1in 0 0.25in},clip]{hw7prob5}
+\end{figure}
+
+\pagebreak
+When the four-factor interaction is removed, these are exact \(F\)-tests:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A*B*C & \(F=\frac{MS_{ABC}}{MS_{E}}\) \\
+\hline
+A*B*D & \(F=\frac{MS_{ABD}}{MS_{E}}\) \\
+\hline
+A*C*D & \(F=\frac{MS_{ACD}}{MS_{E}}\) \\
+\hline
+B*C*D & \(F=\frac{MS_{BCD}}{MS_{E}}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+These are the approximate \(F\)-tests performed by SAS:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A & \(F=\frac{MS_{A}}{MS_{AC}+MS_{AD}-MS_{ACD}}\) \\
+\hline
+B & \(F=\frac{MS_{B}}{MS_{BC}+MS_{BD}-MS_{BCD}}\) \\
+\hline
+A*B & \(F=\frac{MS_{AB}}{MS_{ABC}+MS_{ABD}-MS_{E}}\) \\
+\hline
+C & \(F=\frac{MS_{C}}
+{MS_{AC}+MS_{BC}-MS_{ABC}+MS_{CD}-MS_{ACD}-MS_{BCD}+MS_{E}}\) \\
+\hline
+A*C & \(F=\frac{MS_{AC}}{MS_{ABC}+MS_{ACD}-MS_{E}}\) \\
+\hline
+B*C & \(F=\frac{MS_{BC}}{MS_{ABC}+MS_{BCD}-MS_{E}}\) \\
+\hline
+D & \(F=\frac{MS_{D}}
+{MS_{AD}+MS_{BD}-MS_{ABD}+MS_{CD}-MS_{ACD}-MS_{BCD}+MS_{E}}\) \\
+\hline
+A*D & \(F=\frac{MS_{AD}}{MS_{ABD}+MS_{ACD}-MS_{E}}\) \\
+\hline
+B*D & \(F=\frac{MS_{BD}}{MS_{ABD}+MS_{BCD}-MS_{E}}\) \\
+\hline
+C*D & \(F=\frac{MS_{CD}}{MS_{ACD}+MS_{BCD}-MS_{E}}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\item %e
+{\it Suppose the four-factor and all three-factor interactions are removed
+from the model. Answer parts (b) and (c) again.}
+
+\begin{figure}[H]
+\includegraphics[page=13,trim={1in 7.2in 1in 0.2in},clip]{hw7prob5}
+\end{figure}
+
+These tests are exact:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A*B & \(F=\frac{MS_{AB}}{MS_{E}}\) \\
+\hline
+A*C & \(F=\frac{MS_{AC}}{MS_{E}}\) \\
+\hline
+B*C & \(F=\frac{MS_{BC}}{MS_{E}}\) \\
+\hline
+A*D & \(F=\frac{MS_{AD}}{MS_{E}}\) \\
+\hline
+B*D & \(F=\frac{MS_{BD}}{MS_{E}}\) \\
+\hline
+C*D & \(F=\frac{MS_{CD}}{MS_{E}}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+These are approximate \(F\)-tests:
+
+\begin{table}[H]\centering\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+Source & \(F\)-statistic \\
+\hline
+A & \(F=\frac{MS_{A}}{MS_{AC}+MS_{AD}-MS_{E}}\) \\
+\hline
+B & \(F=\frac{MS_{B}}{MS_{BC}+MS_{BD}-MS_{E}}\) \\
+\hline
+C & \(F=\frac{MS_{C}}
+{MS_{AC}+MS_{BC}+MS_{CD}-2MS_{E}}\) \\
+\hline
+D & \(F=\frac{MS_{D}}
+{MS_{AD}+MS_{BD}+MS_{CD}-2MS_{E}}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{enumerate}
+
+\item %6
+{\it See Problem 13.21, page 603.}
+
+\begin{enumerate}
+
+\item %a
+{\it Answer the second question only: ``If the three-factor and
+\((\tau\beta)_{ij}\) interactions do not exist, can all remaining effects be
+tested?'' That is, for each model effect, do we have an exact \(F\)-test or do
+we have to consider an approximate \(F\)-test?}
+
+The expected mean squares are:
+
+\begin{table}[h]\centering
+\begin{tabular}{|l|l|}
+\hline
+Source & Expected Mean Square \\
+\hline
+A & \(\sigma^2+b\sigma^2_{\tau\gamma}+bc\sigma^2_{\tau}\) \\
+\hline
+B & \(\sigma^2+a\sigma^2_{\beta\gamma}+ac\sigma^2_{\beta}\) \\
+\hline
+C & \(\sigma^2+a\sigma^2_{\beta\gamma}
++b\sigma^2_{\tau\gamma}+ab\sigma^2_{\gamma}\) \\
+\hline
+AC & \(\sigma^2+b\sigma^2_{\tau\gamma}\) \\
+\hline
+BC & \(\sigma^2+a\sigma^2_{\beta\gamma}\) \\
+\hline
+\end{tabular}
+\end{table}
+
+There are exact \(F\)-tests for factor A (denominator is \(MS_{AC}\)),
+factor B (denominator is \(MS_{BC}\)), and the AC and BC interactions
+(denominator is \(MS_{E}\)).
+
+\item %b
+{\it For each effect having an associated approximate \(F\)-test, provide a
+linear combination of mean squares appearing in the numerator and in the
+denominator of the \(F\)-statistic.}
+
+The only approximate \(F\)-test is the test for the factor C effect. One
+possible \(F\)-statistic for this test is:
+\begin{align*}
+F=\frac{MS_{C}+MS_{E}}{MS_{AC}+MS_{BC}}
+\end{align*}
+
+\end{enumerate}
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problems 1--3}
+
+\footnotesize\lstinputlisting[language=SAS]{p13_1.sas}
+
+\subsection*{Problem 4}
+
+\footnotesize\lstinputlisting[language=SAS]{prob4.sas}
+
+\pagebreak
+\subsection*{Problem 5}
+
+\footnotesize\lstinputlisting[language=SAS]{prob5.sas}
+
+\pagebreak
+\subsection*{Problem 6}
+
+\footnotesize\lstinputlisting[language=SAS]{prob6.sas}
+
+\end{document}
+

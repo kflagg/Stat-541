@@ -1,0 +1,314 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\title{Stat 541 Homework \#4}
+\author{Kenny Flagg}
+\date{February 24, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+
+\begin{enumerate}
+
+\item %a
+\textbf{ANOVA on Untransformed Data}
+
+\(H_0\): \(\mu^2_1=\mu^2_2=\mu^2_3=\mu^2_4=\mu^2_5\); The mean count per second
+is the same for each treatment.
+
+\(H_a\): \(\mu^2_i=\mu^2_j\) for some \(i\neq j\); Some treatment means are not
+equal.
+
+\begin{verbatim}
+                     ANOVA RESULTS: No Transformation
+
+                             The GLM Procedure
+ 
+                      Dependent Variable: countsec   
+
+                                     Sum of
+ Source                    DF       Squares   Mean Square  F Value  Pr > F
+
+ Model                      4    0.04752280    0.01188070    95.53  <.0001
+
+ Error                     25    0.00310920    0.00012437                 
+
+ Corrected Total           29    0.05063200                               
+
+
+           R-Square     Coeff Var      Root MSE    countsec Mean
+
+           0.938592      22.30408      0.011152         0.050000
+
+
+ Source                    DF   Type III SS   Mean Square  F Value  Pr > F
+
+ pCig                       4    0.04752280    0.01188070    95.53  <.0001
+\end{verbatim}
+
+The \verb|pCig| row has \(\text{p-value}<0.0001\) so there is strong evidence
+that the treatments do not all have the same mean count per second.
+
+\pagebreak
+\item %b
+\textbf{Tests of Contrasts}
+
+\begin{verbatim}
+                     ANOVA RESULTS: No Transformation
+
+                             The GLM Procedure
+ 
+                      Dependent Variable: countsec   
+
+                                            Standard
+Parameter                   Estimate           Error    t Value    Pr > |t|
+
+Linear                    0.26700000      0.01410634      18.93      <.0001
+Quadratic                 0.00540000      0.01727667       0.31      0.7572
+Cubic                     0.00800000      0.01537203       0.52      0.6073
+Quartic                   0.01040000      0.04157782       0.25      0.8045
+\end{verbatim}
+
+The linear contrast has \(\text{p-value}<0.0001\), so there is strong evidence
+of a linear trend in the treatment mean count per second. The other contrasts
+all have \(\text{p-value}>0.05\) so there is little to no evidence of quadratic,
+cubic, or quartic trends.
+
+\item %c
+\textbf{Boxplots}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{orig9}\end{center}
+
+The results from the tests of the contrasts agree with the boxplots, which show
+a very linear trend with no curvature.
+
+\pagebreak
+\item %d
+\textbf{Levene's Test}
+
+\(H_0\): \(\sigma^2_1=\sigma^2_2=\sigma^2_3=\sigma^2_4=\sigma^2_5\); The
+variances are equal for each treatment.
+
+\(H_a\): \(\sigma^2_i=\sigma^2_j\) for some \(i\neq j\); Some treatment
+variances are not equal.
+
+\begin{verbatim}
+                     ANOVA RESULTS: No Transformation
+
+                             The GLM Procedure
+
+            Levene's Test for Homogeneity of countsec Variance
+               ANOVA of Absolute Deviations from Group Means
+ 
+                             Sum of        Mean
+       Source        DF     Squares      Square    F Value    Pr > F
+
+       pCig           4    0.000752    0.000188       5.58    0.0024
+       Error         25    0.000842    0.000034                     
+\end{verbatim}
+
+Levene's test gives a \(\text{p-value}=0.0024\) so there is strong evidence
+that the variances differ between treatments.
+
+\item %e
+\textbf{Diagnostic Plots}
+
+\includegraphics[width=0.5\linewidth]{orig}\includegraphics[width=0.5\linewidth]{orig3}
+
+The residuals vs predicted values plot shows a clear fanning pattern of
+increasing variance with increasing counts per second. The normal probability
+plot does not show any serious deviation from normality aside from some extreme
+values in the tails. It is appropriate to use Levene's test to check the
+homogeneity of variance assumption.
+
+\pagebreak
+\item %f
+\textbf{ANOVA on Square-Root Transformed Response}
+
+\(H_0\): \(\mu^2_1=\mu^2_2=\mu^2_3=\mu^2_4=\mu^2_5\); The mean square root
+count per second is the same for each treatment.
+
+\(H_a\): \(\mu^2_i=\mu^2_j\) for some \(i\neq j\); Some treatment means are not
+equal.
+
+\begin{verbatim}
+                 ANOVA RESULTS: Square Root Transformation
+
+                             The GLM Procedure
+ 
+                      Dependent Variable: sqrtcnt   
+
+                                     Sum of
+ Source                    DF       Squares   Mean Square  F Value  Pr > F
+
+ Model                      4    0.30234533    0.07558633   164.99  <.0001
+
+ Error                     25    0.01145339    0.00045814                 
+
+ Corrected Total           29    0.31379872                               
+
+
+           R-Square     Coeff Var      Root MSE    sqrtcnt Mean
+
+           0.963501      10.76412      0.021404        0.198847
+
+
+ Source                    DF   Type III SS   Mean Square  F Value  Pr > F
+
+ pCig                       4    0.30234533    0.07558633   164.99  <.0001
+\end{verbatim}
+
+The \verb|pCig| row has \(\text{p-value}<0.0001\) so there is strong evidence
+that the treatments do not all have the same mean square root count per second.
+
+\pagebreak
+\textbf{Tests of Contrasts}
+
+\begin{verbatim}
+                 ANOVA RESULTS: Square Root Transformation
+
+                             The GLM Procedure
+ 
+                      Dependent Variable: sqrtcnt   
+
+                                            Standard
+Parameter                   Estimate           Error    t Value    Pr > |t|
+
+Linear                    0.63300870      0.02707429      23.38      <.0001
+Quadratic                -0.13182571      0.03315909      -3.98      0.0005
+Cubic                     0.05075728      0.02950352       1.72      0.0977
+Quartic                  -0.00612794      0.07980028      -0.08      0.9394
+\end{verbatim}
+
+The linear contrast has \(\text{p-value}<0.0001\) and the quadratic contrast
+has \(\text{p-value}=0.0005\), so there is strong evidence of linear and
+quadratic trends in the mean square root count per second. The cubic and
+quartic contrasts have \(\text{p-value}>0.05\) so there is little to no
+evidence of cubic or quartic trends in the transformed data.
+
+\textbf{Boxplots}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{sqrt9}\end{center}
+
+The boxplots show an increasing trend with some quadratic curvature, but no
+higher-order curvature is apparent. This agrees with the results from testing
+the contrasts.
+
+\pagebreak
+\textbf{Levene's Test}
+
+\(H_0\): \(\sigma^2_1=\sigma^2_2=\sigma^2_3=\sigma^2_4=\sigma^2_5\); The
+variances are equal for each treatment.
+
+\(H_a\): \(\sigma^2_i=\sigma^2_j\) for some \(i\neq j\); Some treatment
+variances are not equal.
+
+\begin{verbatim}
+                 ANOVA RESULTS: Square Root Transformation
+
+                             The GLM Procedure
+
+             Levene's Test for Homogeneity of sqrtcnt Variance
+               ANOVA of Absolute Deviations from Group Means
+ 
+                             Sum of        Mean
+       Source        DF     Squares      Square    F Value    Pr > F
+
+       pCig           4    0.000563    0.000141       1.10    0.3773
+       Error         25     0.00319    0.000128                     
+\end{verbatim}
+
+Levene's test on the transformed data gives \(\text{p-value}=0.3773\). There is
+little to no evidence that that variances differ between the treatments. The
+transformation has stabilized the variance.
+
+\textbf{Diagnostic Plots}
+
+\includegraphics[width=0.5\linewidth]{sqrt}\includegraphics[width=0.5\linewidth]{sqrt3}
+
+The residuals vs predicted values plot shows very similar spreads for each
+predicted value, so the variance can be assumed constant. The normal
+probability plot shows no problems.
+
+\pagebreak
+\item %g
+\textbf{Box-Cox Transformation}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{boxcox}\end{center}
+
+The Box-Cox method recommends \(\lambda=0.34\), or approximately
+\(y^*=\sqrt[3]{y}\).
+
+\item %h
+\textbf{Recommendation}
+
+I recommend using the square root transformation. Levene's test on the original
+data gives evidence (\(\text{p-value}=0.0024\)) the the homogeneity of variance
+assumption does not hold, so ANOVA results on the original data are unreliable.
+The square root transformation is reasonable because 0.5 is in the 95\%
+confidence interval for \(\lambda\) from the Box-Cox procedure.
+
+\end{enumerate}
+
+\item %2
+
+\begin{enumerate}
+
+\item %a
+
+The boxplot shows vastly different spreads among the groups, so yes it was
+reasonable to do a WLS ANOVA using \(\displaystyle w_i=\frac{1}{s^2_i}\)
+as the weights.
+
+\item %b
+
+The spread of a group does not appear to be related to the mean of the
+group, so the Box-Cox procedure is unlikely to successfully stabilize
+the variance.
+
+\end{enumerate}
+
+\pagebreak
+\item %3
+Fit the regression model \(\log(s_i)=\log(\theta)+\alpha\log(\bar{y}_i)+\epsilon_i\)
+
+\begin{verbatim}
+                ANOVA TO FIND EMPIRICAL SELECTION OF ALPHA
+
+                             The GLM Procedure
+ 
+                       Dependent Variable: logstd   
+
+                                       Standard
+     Parameter         Estimate           Error    t Value    Pr > |t|
+
+     Intercept      10.83673889      1.10964799       9.77      0.0103
+     logmean        -0.76145545      0.14854676      -5.13      0.0360
+\end{verbatim}
+
+\begin{center}\includegraphics[width=0.5\linewidth]{empirical}\end{center}
+
+The least squares estimate of the slope is \(\widehat{\alpha}=-0.7614\) so the
+suggested transformation is \(y^*=y^{1.7614}\)
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problem 1}
+
+\verbatiminput{hw4p1.sas}
+
+\subsubsection*{Problem 3}
+
+\verbatiminput{hw4p3.sas}
+
+\end{document}

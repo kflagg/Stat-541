@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\title{Stat 541 Homework \#1}
+\author{Kenny Flagg}
+\date{February 1, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+~\vspace{-33pt}
+\begin{align*}
+\sum_{i=1}^a\sum_{j=1}^{n_i}\left(y_{ij}-\bar{y}_{..}\right)^2
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}\left(y_{ij}^2-2y_{ij}\bar{y}_{..}+\bar{y}_{..}^2\right)\\
+&=\sum_{i=1}^a\left(\sum_{j=1}^{n_i}y_{ij}^2-2\left(\sum_{j=1}^{n_i}y_{ij}\right)\bar{y}_{..}+\sum_{j=1}^{n_i}\bar{y}_{..}^2\right)\\
+&=\sum_{i=1}^a\left(\sum_{j=1}^{n_i}y_{ij}^2-2y_{i.}\bar{y}_{..}+n_i\bar{y}_{..}^2\right)\\
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}y_{ij}^2-2\left(\sum_{i=1}^ay_{i.}\right)\bar{y}_{..}+\left(\sum_{i=1}^an_i\right)\bar{y}_{..}^2\\
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}y_{ij}^2-2y_{..}\bar{y}_{..}+N\bar{y}_{..}^2\\
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}y_{ij}^2-2y_{..}\frac{{y}_{..}}{N}+N\left(\frac{{y}_{..}}{N}\right)^2\\
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}y_{ij}^2-2\frac{{y}_{..}^2}{N}+\frac{{y}_{..}^2}{N}\\
+&=\sum_{i=1}^a\sum_{j=1}^{n_i}y_{ij}^2-\frac{{y}_{..}^2}{N}
+\end{align*}
+
+\pagebreak
+\item %2
+
+\begin{enumerate}
+
+\item %a
+Under \(H_0\) the test statistic is \(F_0\sim\mathrm{F}(5, 24)\) so for each \(\alpha\) we reject \(H_0\) if:
+\begin{center}\begin{tabular}{|c|c|}
+\hline
+Signifiance Level & Rejection Region \\
+\hline
+\(\alpha=0.01\) &  \(F_0\geq F_{0.01}(5, 24)=3.90\) \\
+\(\alpha=0.05\) & \(F_0\geq F_{0.05}(5, 24)=2.62\) \\
+\(\alpha=0.10\) & \(F_0\geq F_{0.10}(5, 24)=2.10\) \\
+\hline
+\end{tabular}\end{center}
+
+\item %b
+First we need the overall total:
+\begin{equation*}
+y_{..}=\sum_i\sum_jy_{ij}=\sum_iy_{i.}=50+75+100+90+60+75=450
+\end{equation*}
+Next, find \(SS_T\) and \(SS_{Trt}\):
+\begin{equation*}
+SS_T=\sum_i\sum_j\left(y_{ij}-\bar{y}_{..}\right)^2=\sum_i\sum_jy_{ij}^2-\frac{y_{..}^2}{N}=7858-\frac{450^2}{30}=1108
+\end{equation*}
+\begin{equation*}
+SS_{Trt}=\sum_i\sum_j\left(\bar{y}_{i.}-\bar{y}_{..}\right)^2=\sum_i\frac{y_{i.}^2}{n_i}-\frac{y_{..}^2}{N}
+=\frac{50^2}{5}+\frac{75^2}{5}+\frac{100^2}{5}+\frac{90^2}{5}+\frac{60^2}{5}+\frac{75^2}{5}-\frac{450^2}{30}=340
+\end{equation*}
+Now we can fill in the ANOVA table:
+\begin{center}\begin{tabular}{ccccc}
+Source of &   Sum   &      &  Mean  &             \\
+Variation & Squares & d.f. & Square & \(F\)-Ratio \\
+\hline\hline
+Treatment &   340   &   5  &   68   &\(F_0=2.125\)\\
+Error     &   768   &  24  &   32   &             \\
+\hline
+Total     &  1108   &  29  &        &             \\
+\hline\hline
+\end{tabular}\end{center}
+
+\item %c
+We would reject \(H_0\): \(\mu_1=\mu_2=\mu_3=\mu_4=\mu_5=\mu_6\) for \(\alpha=0.10\) only.
+
+\item %d
+With all of the original observations, the treatment means were \(\bar{y}_{1.}=10\),
+\(\bar{y}_{2.}=15\), \(\bar{y}_{3.}=20\), \(\bar{y}_{4.}=18\), \(\bar{y}_{5.}=12\),
+and \(\bar{y}_{6.}=15\). Treatment 3 had the largest mean. With the one observation
+removed, the new mean for treatment 3 is \(\bar{y}_{3.}=16\) which is close to the
+means for treatments 2 and 6 and is no longer the largest mean. Thus there is less
+between-treatment variability so \(MS_{Trt}\) will decrease.
+
+\end{enumerate}
+
+\pagebreak
+\item %3
+I ran the following SAS code:
+%\verbatiminput{hw1.sas}
+\begin{verbatim}
+data catalysts;
+  input catalyst concentration @@;
+datalines;
+1 58.2 1 57.2 1 58.4 1 55.8 1 54.9
+2 56.3 2 54.5 2 57.0 2 55.3
+3 50.1 3 54.2 3 55.4
+4 52.9 4 49.9 4 50.0 4 51.7
+;
+
+proc glm data = catalysts;
+  class catalyst;
+  model concentration = catalyst;
+\end{verbatim}
+
+Here is the resulting ANOVA table:
+%\verbatiminput{hw1.lis}
+\begin{verbatim}
+                               The GLM Procedure
+ 
+                      Dependent Variable: concentration   
+
+                                       Sum of
+ Source                     DF        Squares    Mean Square   F Value   Pr > F
+
+ Model                       3     85.6758333     28.5586111      9.92   0.0014
+
+ Error                      12     34.5616667      2.8801389                   
+
+ Corrected Total            15    120.2375000                                  
+\end{verbatim}
+
+\item %4
+
+\begin{enumerate}
+
+\item %a
+Yes, we can compute:
+\begin{equation*}
+SS_E=\sum_i(n_i-1)s^2_i
+\end{equation*}
+
+\item %b
+No, we need the sample variance \(s^2\) for the whole sample so we can compute:
+\begin{equation*}
+SS_{Trt}=\left(\sum_in_i-1\right)s^2
+\end{equation*}
+
+\item %c
+No, we need \(s^2\) to find \(SS_{Trt}\) as above and then we can compute:
+\begin{equation*}
+SS_T=SS_{Trt}+SS_E
+\end{equation*}
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,260 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath}
+
+\title{Stat 541 Homework \#3}
+\author{Kenny Flagg}
+\date{February 1, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\setcounter{enumi}{1}
+\item %2
+
+\begin{enumerate}
+
+\item %a
+\(H_0\): \(\tau_1=\tau_2=\tau_3=\tau_4\); All effects are equal.
+
+\(H_a\): \(\tau_i\neq\tau_j\) for some \(i\neq j\); Some effects differ.
+
+\item %b
+SAS produced the following output. (See code in the appendix.)
+
+\begin{verbatim}
+                            PORTLAND CEMENT PROBLEM
+
+                               The GLM Procedure
+ 
+                        Dependent Variable: strength   
+
+                                       Sum of
+ Source                     DF        Squares    Mean Square   F Value   Pr > F
+
+ Model                       3    489740.1875    163246.7292     12.73   0.0005
+
+ Error                      12    153908.2500     12825.6875                   
+
+ Corrected Total            15    643648.4375                                  
+
+
+             R-Square     Coeff Var      Root MSE    strength Mean
+
+             0.760881      3.862817      113.2506         2931.813
+
+
+ Source                     DF    Type III SS    Mean Square   F Value   Pr > F
+
+ technique                   3    489740.1875    163246.7292     12.73   0.0005
+\end{verbatim}
+
+Since the \verb|technique| row has \(\text{p-value}=0.0005\), we reject \(H_0\)
+with \(\alpha=0.05\). There is evidence that the mean tensile strength is not
+the same for all mixing techniques.
+
+\pagebreak
+\item %c
+Fisher's LSD output from SAS:
+
+\begin{verbatim}
+                            PORTLAND CEMENT PROBLEM
+
+                               The GLM Procedure
+ 
+                           t Tests (LSD) for strength
+
+    NOTE: This test controls the Type I comparisonwise error rate, not the 
+                           experimentwise error rate.
+
+
+                     Alpha                            0.05
+                     Error Degrees of Freedom           12
+                     Error Mean Square            12825.69
+                     Critical Value of t           2.17881
+                     Least Significant Difference   174.48
+
+
+          Means with the same letter are not significantly different.
+ 
+ 
+             t Grouping          Mean      N    technique
+
+                      A       3156.25      4    2        
+                                                         
+                      B       2971.00      4    1        
+                      B                                  
+                      B       2933.75      4    3        
+                                                         
+                      C       2666.25      4    4        
+\end{verbatim}
+
+All pairs of means are significantly different except for the means of
+techniques 1 and 3.
+
+\item %d
+Bonferroni's procedure would result in fewer significant differences
+because the minimum significant difference would be larger than that
+used by Fisher's procedure. In particular, techniques 1 and 2 may
+no longer be significantly different because their difference
+(185.25 lb/in\(^2\)) is only slightly higher than Fisher's least
+significant difference.
+
+\item %e
+Since the measurements differ in the number of significant digits,
+I would ask if the measurements were made by the same individual and
+the same equipment. Different individuals and equipment would be
+sources of dependency between observations that this analysis does not
+account for.
+
+\end{enumerate}
+
+\pagebreak
+\item %3
+
+\begin{enumerate}
+
+\item %a
+\(H_0\): \(\sigma^2_\tau=0\); There is no variation in the mean calcuim concentration between batches.
+
+\(H_a\): \(\sigma^2_\tau>0\); There is variation in the mean calcuim concentration between batches.
+
+\item %b
+ANOVA table from SAS:
+
+\begin{verbatim}
+                           BATCH VARIABILITY PROBLEM
+
+                               The GLM Procedure
+ 
+                         Dependent Variable: calcium   
+
+                                       Sum of
+ Source                     DF        Squares    Mean Square   F Value   Pr > F
+
+ Model                       5     0.18932222     0.03786444     10.38   <.0001
+
+ Error                      30     0.10943333     0.00364778                   
+
+ Corrected Total            35     0.29875556                                  
+
+
+              R-Square     Coeff Var      Root MSE    calcium Mean
+
+              0.633703      13.38846      0.060397        0.451111
+
+
+ Source                     DF    Type III SS    Mean Square   F Value   Pr > F
+
+ batch                       5     0.18932222     0.03786444     10.38   <.0001
+\end{verbatim}
+
+\pagebreak
+\item %c
+The REML estimates from \verb|PROC VARCOMP| are \(\widehat\sigma^2_\tau=0.0057028\)
+and \(\widehat\sigma^2=0.0036478\).
+
+\begin{verbatim}
+                           BATCH VARIABILITY PROBLEM
+
+                    Variance Components Estimation Procedure
+
+                            Class Level Information
+ 
+                      Class         Levels    Values
+
+                      batch              6    1 2 3 4 5 6 
+
+
+                    Number of Observations Read          36
+                    Number of Observations Used          36
+
+
+                         Dependent Variable:    calcium
+
+
+                                 REML Iterations
+ 
+       Iteration          Objective         Var(batch)         Var(Error)
+
+               0    -184.7778274868       0.0057027778       0.0036477778
+               1    -184.7778274868       0.0057027778       0.0036477778
+
+
+        Convergence criteria met.                                       
+
+
+                                 REML Estimates
+ 
+                            Variance
+                            Component       Estimate
+
+                            Var(batch)     0.0057028
+                            Var(Error)     0.0036478
+
+
+                   Asymptotic Covariance Matrix of Estimates
+ 
+                                   Var(batch)      Var(Error)
+
+                   Var(batch)      0.00001595      -1.4785E-7
+                   Var(Error)      -1.4785E-7      8.87086E-7
+\end{verbatim}
+
+\item %d
+Boxplot of calcium concentration by batch, produced by SAS:
+\begin{center}
+\includegraphics[width=0.5\linewidth]{BoxPlot.png}
+\end{center}
+All of the batches have somewhat similar spreads. Batches 1, 2, and 3 have similar
+means. These are noticeably higher than the means of batches 4, 5, and 6,
+which are themselves quite similar.
+
+\item %e
+We do not have enough information to assess the assumption of independence
+between batches. The pattern in the boxplot could occur if one person or
+device measured the first three batches and another person or device measured
+the second three batches. We need to know what equipment and operator made each
+measurement.
+
+\end{enumerate}
+
+%\pagebreak
+\item %4
+Let \(\mu_0\) be the mean for the sham treatment, and let \(\mu_i\)
+be the mean for the \(i\) h/day treatment, \(i=1, 2, 3\).
+
+Ignoring the sham treatement, orthogonal linear and quadratic contrasts for the
+treatment means are:
+\begin{align*}
+\Gamma_L&=0\mu_0-1\mu_1+0\mu_2+1\mu_3\\
+\Gamma_Q&=0\mu_0+1\mu_1-2\mu_2+1\mu_3
+\end{align*}
+The estimates of the treatment means are
+\begin{equation*}
+\widehat\mu_0=5.6725\qquad\widehat\mu_1=6.1655\qquad\widehat\mu_2=5.4780\qquad\widehat\mu_3=6.3505
+\end{equation*}
+so the estimates of the contrasts are
+\begin{align*}
+\widehat\Gamma_L&=0\times 5.6725-1\times 6.1655+0\times 5.4780+1\times 6.3505=0.185\\
+\widehat\Gamma_Q&=0\times 5.6725+1\times 6.1655-2\times 5.4780+1\times 6.3505=1.560
+\end{align*}
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problem 2}
+
+\verbatiminput{hw3p2.sas}
+
+\subsubsection*{Problem 3}
+
+\verbatiminput{hw3p3.sas}
+
+\end{document}

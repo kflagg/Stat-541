@@ -1,0 +1,266 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\lstloadlanguages{SAS}
+\lstset{basicstyle=\footnotesize\ttfamily,columns=fixed,showstringspaces=false,
+  showspaces=false,showtabs=false}
+
+\usepackage{enumitem}
+\setlist{parsep=5.5pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 541 Homework \#8}
+\chead{April 25, 2016}
+\rhead{Kenny Flagg}
+\setlength{\headheight}{18pt}
+\setlength{\headsep}{2pt}
+
+\title{Stat 541 Homework \#8}
+\author{Kenny Flagg}
+\date{April 25, 2016}
+
+\begin{document}
+\thispagestyle{plain}
+\maketitle
+
+\begin{enumerate}
+
+\item %1
+{\it Problem 14.4 (pages 637) but suppose, however, that five operators were
+randomly selected for each of the six jobs. Be sure to state the model and
+hypotheses to be tested, check the model assumptions, and provide estimates of
+all variance components. You can assume that Operator is also a random effect.}
+
+The appropriate model is
+\begin{align*}
+y_{ijk}&=\mu+\tau_{i}+\beta_{j(i)}+\epsilon_{k(ij)};\\
+\tau_{i}&\overset{iid}{\sim}\mathrm{N}(0,\sigma^2_\tau),\\
+\beta_{j}&\overset{iid}{\sim}\mathrm{N}(0,\sigma^2_\beta),\\
+\epsilon_{k}&\overset{iid}{\sim}\mathrm{N}(0,\sigma^2)
+\end{align*}
+where \(\tau_{i}\) is the job effec and \(\beta_{j}\) is the operator effect
+within job.
+
+The hypotheses of interest are \(H_0\text{: }\sigma^2_\tau=0\) and
+\(H_1\text{: }\sigma^2_\tau>0\). With a test statistic of \(F=31.47\) and
+\(\text{p-value}<0.0001\), we have suffiecient evidence to reject \(H_0\) at
+a 0.05 significance level. There is strong evidence that the mean time varies
+between jobs, so a common standard should not be used for all jobs.
+
+\begin{figure}[H]\centering
+\includegraphics[page=12,trim={2in 7.45in 2in 0.3in},clip]{hw8prob1.pdf}
+\end{figure}
+
+\begin{figure}[H]\centering
+\includegraphics[page=15,trim={2in 4.3in 2in 5.3in},clip]{hw8prob1.pdf}
+\end{figure}
+
+The variance estimates are \(\sigma^2_\tau=4.31\), \(\sigma^2_\beta=0.215\)
+and \(\sigma^2=0.954\). The job is by far the largest component of the
+variability in completion time.
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.4\linewidth]{hw8p1.png}
+\includegraphics[width=0.4\linewidth]{hw8p19.png}\\
+\includegraphics[width=0.4\linewidth]{hw8p13.png}
+\includegraphics[width=0.4\linewidth]{hw8p16.png}
+\end{figure}
+
+Some observations with large predicted values also have large residuals, but
+there is not a strong increasing trend. The boxplots for individual operators
+show no signs of a serious heterogeneity of variance problem. The Q-Q plot
+shows some deviation from the diagonal line near the center, but it is not
+surprising to see this sort of pattern with only two replicates for each
+operator. The histogram of residuals looks reasonably bell-shaped, so it is
+reasonable to assume Normality.
+
+\pagebreak
+\item %2
+{\it Two-stage nested design with 12 machines, 4 spindles nested within each
+machine, and 5 replicates within each spindle}
+
+\begin{enumerate}
+
+\item %a
+{\it Fill in the d.f. column assuming all 240 values were collected.}
+
+\begin{table}[H]\centering
+\begin{tabular}{lr}
+Source & d.f. \\
+\hline
+Machine & 11 \\
+Spindle(Machine) & 36 \\
+Error & 192 \\
+\hline
+Total & 239
+\end{tabular}
+\end{table}
+
+\item %b
+{\it Suppose the three \(\mathbf{X}\) values were missing for Spindle 3. Fill
+in the partial ANOVA table again.}
+
+\begin{table}[H]\centering
+\begin{tabular}{lr}
+Source & d.f. \\
+\hline
+Machine & 11 \\
+Spindle(Machine) & 36 \\
+Error & 189 \\
+\hline
+Total & 236
+\end{tabular}
+\end{table}
+
+\item %c
+{\it Suppose the five \(\mathbf{Y}\) values for Spindle 3 from Machine 12 are
+missing. Fill in the partial ANOVA table again.}
+
+\begin{table}[H]\centering
+\begin{tabular}{lr}
+Source & d.f. \\
+\hline
+Machine & 11 \\
+Spindle(Machine) & 35 \\
+Error & 188 \\
+\hline
+Total & 234
+\end{tabular}
+\end{table}
+
+\item %d
+{\it Suppose the the three \(\mathbf{X}\) values and the five \(\mathrm{Y}\)
+values were missing. Fill in the partial ANOVA table again.}
+
+\begin{table}[H]\centering
+\begin{tabular}{lr}
+Source & d.f. \\
+\hline
+Machine & 11 \\
+Spindle(Machine) & 35 \\
+Error & 185 \\
+\hline
+Total & 231
+\end{tabular}
+\end{table}
+
+\end{enumerate}
+
+\pagebreak
+\item %3
+{\it Using the data in Problem 14.3 (page 637), what are the model matrix
+\(\mathbf{X}\) and the corresponding vector \(y\) assuming
+\(\displaystyle\sum_{i=1}^3\alpha_i=0\) and
+\(\displaystyle\sum_{j(i)=1}^2\beta_j=0\) for \(i=1,2,3\)? Write \(\mathbf{X}\)
+in so that there is a column for each model parameter.}
+
+\begin{equation*}
+\mathbf{X}=\begin{bmatrix}
+1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+
+1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+
+1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+
+1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 \\
+
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 \\
+
+0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
+\end{bmatrix}\qquad y=\begin{bmatrix}
+12 \\  9 \\ 11 \\ 12 \\
+ 8 \\  9 \\ 10 \\  8 \\
+14 \\ 15 \\ 13 \\ 14 \\
+12 \\ 10 \\ 11 \\ 13 \\
+14 \\ 10 \\ 12 \\ 11 \\
+16 \\ 15 \\ 15 \\ 14 \\
+
+0 \\ 0 \\ 0 \\ 0
+\end{bmatrix}
+\end{equation*}
+
+\pagebreak
+\item %4
+{\it Redo the previous problem with the reduced column form for
+ \(\mathbf{X}\).}
+
+\begin{equation*}
+\mathbf{X}=\begin{bmatrix}
+1 & 1 & 0 & 1 & 0 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 \\
+1 & 1 & 0 & 1 & 0 & 0 \\
+
+1 & 1 & 0 & -1& 0 & 0 \\
+1 & 1 & 0 & -1& 0 & 0 \\
+1 & 1 & 0 & -1& 0 & 0 \\
+1 & 1 & 0 & -1& 0 & 0 \\
+
+1 & 0 & 1 & 0 & 1 & 0 \\
+1 & 0 & 1 & 0 & 1 & 0 \\
+1 & 0 & 1 & 0 & 1 & 0 \\
+1 & 0 & 1 & 0 & 1 & 0 \\
+
+1 & 0 & 1 & 0 & -1& 0 \\
+1 & 0 & 1 & 0 & -1& 0 \\
+1 & 0 & 1 & 0 & -1& 0 \\
+1 & 0 & 1 & 0 & -1& 0 \\
+
+1 & -1& -1& 0 & 0 & 1 \\
+1 & -1& -1& 0 & 0 & 1 \\
+1 & -1& -1& 0 & 0 & 1 \\
+1 & -1& -1& 0 & 0 & 1 \\
+
+1 & -1& -1& 0 & 0 & -1 \\
+1 & -1& -1& 0 & 0 & -1 \\
+1 & -1& -1& 0 & 0 & -1 \\
+1 & -1& -1& 0 & 0 & -1
+\end{bmatrix}\qquad y=\begin{bmatrix}
+12 \\  9 \\ 11 \\ 12 \\
+ 8 \\  9 \\ 10 \\  8 \\
+14 \\ 15 \\ 13 \\ 14 \\
+12 \\ 10 \\ 11 \\ 13 \\
+14 \\ 10 \\ 12 \\ 11 \\
+16 \\ 15 \\ 15 \\ 14
+\end{bmatrix}
+\end{equation*}
+
+\end{enumerate}
+
+\pagebreak
+\subsection*{Appendix: SAS Code}
+
+\subsubsection*{Problems 1}
+
+\footnotesize\lstinputlisting[language=SAS]{p14_4ho3.sas}
+
+\end{document}
+
