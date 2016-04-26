@@ -1,0 +1,369 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+
+\usepackage{amsmath}
+\setcounter{MaxMatrixCols}{15}
+
+\title{Stat 541 Homework \#2}
+\author{Kenny Flagg}
+\date{February 8, 2016}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+
+\item ~%1
+\vspace{-22pt}\begin{center}\begin{tabular}{rrrr}
+Circuit 1 & Circuit 2 & Circuit 3 & \\
+\hline
+ 9 & 20 &  6 & \\
+12 & 21 &  5 & \\
+10 & 23 &  8 & \\
+ 8 & 17 & 16 & \\
+15 & 30 &  7 & \\
+\hline
+\(y_{1.}=54\) & \(y_{2.}=111\) & \(y_{3.}=42\) & \(y_{..}=207\)
+\end{tabular}\end{center}
+\begin{enumerate}
+
+\item %a
+Normal equations:
+\begin{align}
+207&=15\widehat\mu+5\widehat\tau_1+5\widehat\tau_2+5\widehat\tau_3\\
+ 54&=\:\;5\widehat\mu+5\widehat\tau_1\\
+111&=\:\;5\widehat\mu\qquad\:\:\,+5\widehat\tau_2\\
+ 42&=\:\;5\widehat\mu\qquad\qquad\quad\:+5\widehat\tau_3
+\end{align}
+
+\item %b
+If \(\tau_1+\tau_2+\tau_3=0\), equation (1) becomes
+\begin{equation*}
+207=15\widehat\mu
+\end{equation*}
+so
+\begin{equation*}
+\widehat\mu=\frac{207}{15}=13.8
+\end{equation*}
+
+Equation (2) becomes
+\begin{equation*}
+54=5\times 13.8+\widehat\tau_1
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_1=\frac{54-69}{5}=-3
+\end{equation*}
+
+Equation (3) becomes
+\begin{equation*}
+111=5\times 13.8+5\widehat\tau_2
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_2=\frac{111-69}{5}=8.4
+\end{equation*}
+
+Finally, equation (4) becomes
+\begin{equation*}
+42=5\times 13.8+5\widehat\tau_3
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_3=\frac{42-69}{5}=-5.4
+\end{equation*}
+
+\item %c
+If \(\tau_2=0\), equation (3) becomes
+\begin{equation*}
+111=5\widehat\mu
+\end{equation*}
+so
+\begin{equation*}
+\widehat\mu=\frac{111}{5}=22.2
+\end{equation*}
+
+Equation (2) becomes
+\begin{equation*}
+54=5\times 22.2+\widehat\tau_1
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_1=\frac{54-111}{5}=-11.4
+\end{equation*}
+
+And equation (4) becomes
+\begin{equation*}
+42=5\times 22.2+5\widehat\tau_3
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_3=\frac{42-111}{5}=-13.8
+\end{equation*}
+
+\item %d
+If \(\mu=5\), equation (2) becomes
+\begin{equation*}
+54=5\times 5+5\widehat\tau_1
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_1=\frac{54-25}{5}=5.8
+\end{equation*}
+
+Equation (3) becomes
+\begin{equation*}
+111=5\times 5+\widehat\tau_2
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_2=\frac{111-25}{5}=17.2
+\end{equation*}
+
+And equation (4) becomes
+\begin{equation*}
+42=5\times 5+5\widehat\tau_3
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_3=\frac{42-25}{5}=3.4
+\end{equation*}
+
+\item ~%e
+\vspace{-22pt}\begin{center}\begin{tabular}{ccc}
+Constraint&\(\widehat\tau_1+\widehat\tau_2-2\widehat\tau_3\)&
+\(\widehat\mu+\widehat\tau_1+\widehat\tau_3\)\\
+\hline
+(b)&\(-3+8.4-2\times(-5.4)=16.2\)&\(13.8-3-5.4=5.4\)\\
+(c)&\(-11.4+0-2\times(-13.8)=16.2\)&\(22.2-11.4-13.8=-3\)\\
+(d)&\(5.8+17.2-2\times(3.4)=16.2\)&\(5+5.8+3.4=14.2\)\\
+\end{tabular}\end{center}
+
+\item %f
+The estimates of \(\widehat\mu+\widehat\tau_1+\widehat\tau_3\) differ because
+\(\widehat\tau_3\) is not uniquely estimible. \(\widehat\mu+\widehat\tau_1\)
+is uniquely estimible, but the value of \(\widehat\tau_3\) alone depends upon
+the constraint used.
+
+\end{enumerate}
+
+\pagebreak
+\item %2
+\begin{enumerate}
+
+\item ~%a
+\vspace{-11pt}\begin{equation*}
+X=\begin{bmatrix}
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&0&0\\
+1&0&0\\
+1&0&0\\
+1&0&0\\
+1&0&0\\
+1&0&1\\
+1&0&1\\
+1&0&1\\
+1&0&1\\
+1&0&1
+\end{bmatrix}\qquad
+X'X=\begin{bmatrix}
+15&5&5\\
+5&5&0\\
+5&0&5
+\end{bmatrix}\qquad
+(X'X)^{-1}=\frac{1}{5}\begin{bmatrix}
+1&-1&-1\\
+-1&2&1\\
+-1&1&2\\
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+X'y=\begin{bmatrix}
+1&1&1&1&1&1&1&1&1&1&1&1&1&1&1\\
+1&1&1&1&1&0&0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&0&0&1&1&1&1&1
+\end{bmatrix}\begin{bmatrix}
+9\\12\\10\\8\\15\\20\\21\\23\\17\\30\\6\\5\\8\\16\\7
+\end{bmatrix}\\
+=\begin{bmatrix}
+207\\54\\42
+\end{bmatrix}
+\end{equation*}
+
+\item ~%b
+\vspace{-11pt}\begin{equation*}
+\theta=\begin{bmatrix}
+\mu\\ \tau_1\\ \tau_3
+\end{bmatrix}
+\end{equation*}
+
+\item ~%c
+\vspace{-11pt}\begin{equation*}
+\widehat\theta=\begin{bmatrix}
+\widehat\mu\\ \widehat\tau_1\\ \widehat\tau_3
+\end{bmatrix}=(X'X)^{-1}X'y=\frac{1}{5}\begin{bmatrix}
+1&-1&-1\\
+-1&2&1\\
+-1&1&2\\
+\end{bmatrix}\begin{bmatrix}
+207\\54\\42
+\end{bmatrix}
+=\begin{bmatrix}
+22.2\\-11.4\\-13.8
+\end{bmatrix}
+\end{equation*}
+
+\pagebreak
+\item ~%d
+\vspace{-22pt}\begin{equation*}
+X=\begin{bmatrix}
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&1&0\\
+1&0&1\\
+1&0&1\\
+1&0&1\\
+1&0&1\\
+1&0&1\\
+1&-1&-1\\
+1&-1&-1\\
+1&-1&-1\\
+1&-1&-1\\
+1&-1&-1
+\end{bmatrix}\qquad
+X'X=\begin{bmatrix}
+15&0&0\\
+0&10&5\\
+0&5&10
+\end{bmatrix}\qquad
+(X'X)^{-1}=\frac{1}{15}\begin{bmatrix}
+1&0&0\\
+0&2&-1\\
+0&-1&2\\
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+X'y=\begin{bmatrix}
+1&1&1&1&1&1&1&1&1&1&1&1&1&1&1\\
+1&1&1&1&1&0&0&0&0&0&-1&-1&-1&-1&-1\\
+0&0&0&0&0&1&1&1&1&1&-1&-1&-1&-1&-1
+\end{bmatrix}\begin{bmatrix}
+9\\12\\10\\8\\15\\20\\21\\23\\17\\30\\6\\5\\8\\16\\7
+\end{bmatrix}\\
+=\begin{bmatrix}
+207\\12\\69
+\end{bmatrix}
+\end{equation*}
+
+\item ~%e
+\vspace{-22pt}\begin{equation*}
+\theta=\begin{bmatrix}
+\mu\\ \tau_1\\ \tau_2
+\end{bmatrix}
+\end{equation*}
+
+\item ~%f
+\vspace{-22pt}\begin{align*}
+\widehat\theta&=\begin{bmatrix}
+\widehat\mu\\ \widehat\tau_1\\ \widehat\tau_2
+\end{bmatrix}=(X'X)^{-1}X'y=\frac{1}{15}\begin{bmatrix}
+1&0&0\\
+0&2&-1\\
+0&-1&2\\
+\end{bmatrix}\begin{bmatrix}
+207\\12\\69
+\end{bmatrix}
+=\begin{bmatrix}
+13.8\\-3\\8.4
+\end{bmatrix}\\
+\widehat\tau_3&=-\widehat\tau_1-\widehat\tau_2=3-8.4=-5.4
+\end{align*}
+
+\end{enumerate}
+
+\pagebreak
+\item %3
+\begin{enumerate}
+
+\item %a
+The new data are:
+\begin{center}\begin{tabular}{rrrr}
+Circuit 1 & Circuit 2 & Circuit 3 & \\
+\hline
+ 9 & 20 &  6 & \\
+12 & 21 &  5 & \\
+10 & 23 &  8 & \\
+ 8 & 17 & 16 & \\
+15 & 30 &    & \\
+\hline
+\(y_{1.}=54\) & \(y_{2.}=111\) & \(y_{3.}=35\) & \(y_{..}=200\)
+\end{tabular}\end{center}
+The new normal equations are:
+\begin{align}
+200&=14\widehat\mu+5\widehat\tau_1+5\widehat\tau_2+4\widehat\tau_3\\
+ 54&=\:\;5\widehat\mu+5\widehat\tau_1\\
+111&=\:\;5\widehat\mu\qquad\:\:\,+5\widehat\tau_2\\
+ 35&=\:\;4\widehat\mu\qquad\qquad\quad\:+4\widehat\tau_3
+\end{align}
+
+\item %b
+If \(5\tau_1+5\tau_2+4\tau_3=0\), equation (5) becomes
+\begin{equation*}
+200=14\widehat\mu
+\end{equation*}
+so
+\begin{equation*}
+\widehat\mu=\frac{200}{14}=14.286
+\end{equation*}
+
+Equation (6) becomes
+\begin{equation*}
+54=5\times 14.286+\widehat\tau_1
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_1=\frac{54-71.429}{5}=-3.486
+\end{equation*}
+
+Equation (7) becomes
+\begin{equation*}
+111=5\times 14.286+5\widehat\tau_2
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_2=\frac{111-71.429}{5}=7.914
+\end{equation*}
+
+Lastly, equation (8) becomes
+\begin{equation*}
+35=4\times 14.286+4\widehat\tau_3
+\end{equation*}
+so
+\begin{equation*}
+\widehat\tau_3=\frac{35-57.143}{4}=-5.536
+\end{equation*}
+
+\end{enumerate}
+
+\pagebreak
+\setcounter{enumi}{4}
+\item ~%5
+\vspace{-33pt}\begin{align*}
+\frac{-\sum_{i=1}^{a-1}n_i\left(\bar{y}_{i.}-\bar{y}_{..}\right)}{n_a}
+&=\frac{n_a\left(\bar{y}_{a.}-\bar{y}_{..}\right)-\sum_{i=1}^{a}n_i\left(\bar{y}_{i.}-\bar{y}_{..}\right)}{n_a}\\
+&=\left(\bar{y}_{a.}-\bar{y}_{..}\right)-\frac{\left(\sum_{i=1}^{a}n_i\bar{y}_{i.}-\sum_{i=1}^{a}n_i\bar{y}_{..}\right)}{n_a}\\
+&=\bar{y}_{a.}-\bar{y}_{..}-\frac{\left(\sum_{i=1}^{a}y_{i.}-N\bar{y}_{..}\right)}{n_a}\\
+&=\bar{y}_{a.}-\bar{y}_{..}-\frac{\left(y_{..}-y_{..}\right)}{n_a}\\
+&=\bar{y}_{a.}-\bar{y}_{..}
+\end{align*}
+
+\end{enumerate}
+
+\end{document}
+
